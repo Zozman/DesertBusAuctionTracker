@@ -74,7 +74,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
         startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        endTime = null;
+        endTime = "";
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;

@@ -52,7 +52,11 @@ function checkStatus() {
                 $("#startTime").text("Auction Start Time: " + output.startTime);
               }
               if (output.endTime !== null) {
-                $("#endTime").text("Auction End Time: " + output.endTime);
+                if (output.endTime === "") {
+                  $("#endTime").text("");
+                } else {
+                  $("#endTime").text("Auction End Time: " + output.endTime);
+                }
               }
     				},
     				async: true,
