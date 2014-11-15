@@ -1,9 +1,11 @@
+body {
+  background-color: #f1c40f;
+}
+
 #text {
-  text-align: center;
-  display: table-cell;
-  vertical-align: middle;
-  margin-left:auto;
-	margin-right:auto;
-  height: 100%;
-  background-color: #c0392b;
+  position:absolute;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
 }
