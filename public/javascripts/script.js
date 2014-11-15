@@ -38,6 +38,13 @@ function checkStatus() {
                 $("#endTime").text("Auction End Time: ???");
               }
               $("#bidder").text("High Bidder: " + output.highBidder);
+              if (output.prize !== null) {
+                if (output.inAuction) {
+                  $("#item").text("Current Auction Item: " + output.prize);
+                } else {
+                  $("#item").text("Last Auction Item: " + output.prize);
+                }
+              }
     				},
     				async: true,
     				error: function() {

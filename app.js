@@ -71,7 +71,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.highBidder = "";
-        aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-1);
+        aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
         var newDate = new Date();
         startTime = newDate.today() + " " + newDate.timeNow();
         endTime = null;
