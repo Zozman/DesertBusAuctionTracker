@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var irc = require("irc");
 var routes = require('./routes/index');
 var status = require('./routes/status');
+var moment = require('moment');
 
 var app = express();
 
@@ -48,8 +49,8 @@ aucStatus = {
   goingTwice: false,
   sold: false,
   price: "$0.00",
-  highBidder: "",
-  prize: "",
+  highBidder: "???",
+  prize: "???",
   startTime: null,
   endTime: null
 }
@@ -72,8 +73,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
-        var newDate = new Date();
-        startTime = newDate.today() + " " + newDate.timeNow();
+        startTime = moment().format('MMMM Do YYYY, h:mm:ss a');
         endTime = null;
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
@@ -90,8 +90,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
         aucStatus.inAuction = false;
-        var new2Date = new Date();
-        endTime = new2Date.today() + " " + new2Date.timeNow();
+        endTime = moment().format('MMMM Do YYYY, h:mm:ss a');
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
@@ -144,15 +143,5 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
-
-// For todays date;
-Date.prototype.today = function () { 
-    return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
-}
-
-// For the time now
-Date.prototype.timeNow = function () {
-     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
-}
 
 module.exports = app;

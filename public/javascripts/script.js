@@ -26,7 +26,11 @@ function checkStatus() {
               } else if (output.sold) {
                 $("#going").text("SOLD!!!!!!!");
               }
-              $("#price").text("Current Bid: " + output.price);
+              if (output.inAuction) {
+                $("#price").text("Current Bid: " + output.price);
+              } else {
+                $("#price").text("Sold For: " + output.price);
+              }
               if (output.startTime !== null) {
                 $("#startTime").text("Auction Start Time: " + output.startTime);
               } else {
