@@ -43,10 +43,9 @@ var bot = new irc.Client(settings.server, settings.nick, {
     username: settings.nick
 });
 
-bot.addListener("message", function(message) {
-    //channel.send("%s: %s", message.nickname, message.text);
-    console.log("%s: %s", message.nickname, message.text);
-})
+bot.addListener("message", function (from, to, message) {
+    console.log(from + ' => ' + to + ': ' + message);
+});
 
 bot.connect(function() {
     console.log("Connected!");
