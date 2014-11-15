@@ -43,11 +43,9 @@ var bot = new irc.Client(settings.server, settings.nick, {
     username: settings.nick
 });
 
-var channel = bot.channel("#desertbus");
-
-channel.on("message", function(message) {
+bot.addListener("message", function(message) {
     //channel.send("%s: %s", message.nickname, message.text);
-    console.log("%s: %s", message.nickname, message.text)
+    console.log("%s: %s", message.nickname, message.text);
 })
 
 bot.connect(function() {
