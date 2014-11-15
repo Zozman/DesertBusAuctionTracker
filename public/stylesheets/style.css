@@ -1,5 +1,8 @@
-html {
+body {
   background-color: #c0392b;
+  margin-left:auto;
+	margin-right:auto;
+  height: 100%;
 }
 
 #text {
