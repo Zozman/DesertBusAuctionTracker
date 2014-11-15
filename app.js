@@ -43,7 +43,9 @@ aucStatus = {
   sold: false,
   price: "$0.00",
   highBidder: "",
-  prize: ""
+  prize: "",
+  startTime: null,
+  endTime: null
 }
 
 var bot = new irc.Client(settings.server, settings.nick, {
@@ -64,6 +66,8 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.lastIndexOf("$")-2);
+        startTime = getCurrentTime();
+        endTime = null;
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;
@@ -76,6 +80,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
+        endTime = getCurrentTime();
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
@@ -128,5 +133,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+function getCurrentTime() {
+  var currentdate = new Date(); 
+  var datetime = currentdate.getMonth() + "/"+ (currentdate.getDate()+1)  + "/" + currentdate.getFullYear() + " "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
+  return dateTime;
+}
 
 module.exports = app;
