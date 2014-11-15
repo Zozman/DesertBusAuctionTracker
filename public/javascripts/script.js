@@ -30,12 +30,12 @@ function checkStatus() {
               if (output.startTime !== null) {
                 $("#startTime").text(output.startTime);
               } else {
-                $("#startTime").text("???");
+                $("#startTime").text("Auction Start Time: ???");
               }
               if (output.endTime !== null) {
                 $("#endTime").text(output.endTime);
               } else {
-                $("#endTime").text("???");
+                $("#endTime").text("Auction End Time: ???");
               }
               $("#bidder").text("High Bidder: " + output.highBidder);
     				},
