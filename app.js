@@ -14,6 +14,12 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.all('/', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
+
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
@@ -66,25 +72,31 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.lastIndexOf("$")-2);
-        startTime = getCurrentTime();
+        var newDate = new Date();
+        startTime = newDate.today() + " " + newDate.timeNow();
         endTime = null;
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.inAuction = true;
       } else if (message.indexOf("Going Twice!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = true;
         aucStatus.sold = false;
+        aucStatus.inAuction = true;
       } else if (message.indexOf("SOOOOLLLLDDDD!!!!!!!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
-        endTime = getCurrentTime();
+        aucStatus.inAuction = false;
+        var new2Date = new Date();
+        endTime = new2Date.today() + " " + new2Date.timeNow();
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.inAuction = true;
         var words = message.split(" ");
         for(var x = 0; x < words.length; x++) {
           if (words[x] === "has") {
@@ -133,10 +145,14 @@ app.use(function(err, req, res, next) {
     });
 });
 
-function getCurrentTime() {
-  var currentdate = new Date(); 
-  var datetime = currentdate.getMonth() + "/"+ (currentdate.getDate()+1)  + "/" + currentdate.getFullYear() + " "  + currentdate.getHours() + ":"  + currentdate.getMinutes() + ":" + currentdate.getSeconds();
-  return dateTime;
+// For todays date;
+Date.prototype.today = function () { 
+    return ((this.getDate() < 10)?"0":"") + this.getDate() +"/"+(((this.getMonth()+1) < 10)?"0":"") + (this.getMonth()+1) +"/"+ this.getFullYear();
+}
+
+// For the time now
+Date.prototype.timeNow = function () {
+     return ((this.getHours() < 10)?"0":"") + this.getHours() +":"+ ((this.getMinutes() < 10)?"0":"") + this.getMinutes() +":"+ ((this.getSeconds() < 10)?"0":"") + this.getSeconds();
 }
 
 module.exports = app;
