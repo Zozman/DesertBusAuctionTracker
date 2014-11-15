@@ -1,7 +1,9 @@
+var checkRate = 60000*5;
+
 $(document).ready(function() {
   setInterval(function(){
       checkStatus();
-    },5000);
+    },checkRate);
 });
 
 function checkStatus() {
@@ -12,8 +14,10 @@ function checkStatus() {
     				success: function(output) {
                 if (output.inAuction) {
                   $("#status").text("Desert Bus IS Currently Auctioning");
+                  checkRate = 5000;
                 } else {
                   $("#status").text("Desert Bus IS NOT Currently Auctioning");
+                  checkRate = 60000*5;
                 }
               if (output.goingOnce) {
                 $("#going").text("GOING ONCE!");
