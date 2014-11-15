@@ -1,5 +1,7 @@
 body {
   background-color: #f1c40f;
+  height: 100%;
+  width:100%;
 }
 
 #text {
