@@ -13,7 +13,7 @@ function checkStatus() {
     				dataType: 'json',
     				success: function(output) {
                 if (output.inAuction) {
-                  $("#status").text("Desert Bus IS Currently Auctioning");
+                  $("#status").text("Desert Bus IS Currently Auctioning AWESOMENESS!!!");
                   checkRate = 5000;
                 } else {
                   $("#status").text("Desert Bus IS NOT Currently Auctioning");
@@ -28,12 +28,12 @@ function checkStatus() {
               }
               $("#price").text(output.price);
               if (output.startTime !== null) {
-                $("#startTime").text(output.startTime);
+                $("#startTime").text("Auction Start Time: " + output.startTime);
               } else {
                 $("#startTime").text("Auction Start Time: ???");
               }
               if (output.endTime !== null) {
-                $("#endTime").text(output.endTime);
+                $("#endTime").text("Auction End Time: " + output.endTime);
               } else {
                 $("#endTime").text("Auction End Time: ???");
               }
