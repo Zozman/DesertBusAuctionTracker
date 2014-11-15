@@ -51,8 +51,8 @@ aucStatus = {
   price: "$0.00",
   highBidder: "???",
   prize: "???",
-  startTime: moment().format('MMMM Do YYYY, h:mm:ss a ZZ'),
-  endTime: moment().format('MMMM Do YYYY, h:mm:ss a ZZ')
+  startTime: "???",
+  endTime: ""
 }
 
 var bot = new irc.Client(settings.server, settings.nick, {
