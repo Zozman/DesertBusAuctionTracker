@@ -36,6 +36,16 @@ var settings = {
     password : oauth
 }
 
+aucStatus = {
+  inAuction: false,
+  goingOnce: false,
+  goingTwice: false,
+  sold: false,
+  price: "$0.00",
+  highBidder: "",
+  prize: ""
+}
+
 var bot = new irc.Client(settings.server, settings.nick, {
     channels: [settings.channels + " " + settings.password],
     debug: false,
@@ -44,7 +54,43 @@ var bot = new irc.Client(settings.server, settings.nick, {
 });
 
 bot.addListener("message", function (from, to, message) {
-    console.log(from + ' => ' + to + ': ' + message);
+    //console.log(from + ' => ' + to + ': ' + message);
+    if (from === "bidbot") {
+      if (message.indexOf("Starting Auction") > -1) {
+        aucStatus.inAuction = true;
+        aucStatus.price = message.substring(message.lastIndexOf("$"),message.lastIndexOf("!"));
+        aucStatus.goingOnce = false;
+        aucStatus.goingTwice = false;
+        aucStatus.sold = false;
+        aucStatus.highBidder = "";
+        aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.lastIndexOf("$")-2);
+      } else if (message.indexOf("Going Once!") > -1) {
+        aucStatus.goingOnce = true;
+        aucStatus.goingTwice = false;
+        aucStatus.sold = false;
+      } else if (message.indexOf("Going Twice!") > -1) {
+        aucStatus.goingOnce = false;
+        aucStatus.goingTwice = true;
+        aucStatus.sold = false;
+      } else if (message.indexOf("SOOOOLLLLDDDD!!!!!!!") > -1) {
+        aucStatus.goingOnce = false;
+        aucStatus.goingTwice = false;
+        aucStatus.sold = true;
+      } else if (message.indexOf("has the high bid of") > -1) {
+        aucStatus.goingOnce = false;
+        aucStatus.goingTwice = false;
+        aucStatus.sold = false;
+        var words = message.split(" ");
+        for(var x = 0; x < words.length; x++) {
+          if (words[x] === "has") {
+            aucStatus.highBidder = words[x-1];
+            break;
+          }
+        }
+        aucStatus.price = message.substring(message.lastIndexOf("$"),message.lastIndexOf("!"));
+      }
+      console.log(aucStatus);
+    }
 });
 
 bot.connect(function() {
