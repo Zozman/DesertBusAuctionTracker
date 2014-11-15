@@ -1,5 +1,12 @@
+html {
+  background-color: #c0392b;
+}
+
 #text {
   text-align: center;
   display: table-cell;
   vertical-align: middle;
+  margin-left:auto;
+	margin-right:auto;
+  height: 100%;
 }
