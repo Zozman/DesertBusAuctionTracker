@@ -51,8 +51,8 @@ aucStatus = {
   price: "$0.00",
   highBidder: "???",
   prize: "???",
-  startTime: moment().format('MMMM Do YYYY, h:mm:ss a Z ZZ'),
-  endTime: moment().format('MMMM Do YYYY, h:mm:ss a Z ZZ')
+  startTime: moment().format('MMMM Do YYYY, h:mm:ss a ZZ'),
+  endTime: moment().format('MMMM Do YYYY, h:mm:ss a ZZ')
 }
 
 var bot = new irc.Client(settings.server, settings.nick, {
@@ -73,7 +73,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
-        startTime = moment().format('MMMM Do YYYY, h:mm:ss a Z ZZ');
+        startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
         endTime = null;
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
@@ -90,7 +90,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
         aucStatus.inAuction = false;
-        endTime = moment().format('MMMM Do YYYY, h:mm:ss a Z ZZ');
+        endTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
