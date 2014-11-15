@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    jQuery("#text").fitText();
+    jQuery("html").fitText();
 });
