@@ -43,7 +43,7 @@ var bot = new irc.Client(settings.server, settings.nick, {
     username: settings.nick
 });
 
-var channel = client.channel("#desertbus");
+var channel = bot.channel("#desertbus");
 
 channel.on("message", function(message) {
     //channel.send("%s: %s", message.nickname, message.text);
