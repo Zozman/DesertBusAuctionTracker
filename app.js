@@ -64,7 +64,7 @@ bot.addListener("message", function (from, to, message) {
     if (from === "bidbot") {
       if (message.indexOf("Starting Auction") > -1) {
         aucStatus.inAuction = true;
-        aucStatus.price = message.substring(message.lastIndexOf("$"),message.lastIndexOf("!"));
+        aucStatus.price = message.substring(message.lastIndexOf("$"),message.indexOf("!"), message.lastIndexOf("$"));
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
