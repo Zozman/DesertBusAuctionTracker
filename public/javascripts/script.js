@@ -50,16 +50,6 @@ function checkStatus() {
                   $("#item").text("Last Auction Item: " + output.prize);
                 }
               }
-              if (output.startTime !== null) {
-                $("#startTime").text("Auction Start Time: " + output.startTime);
-              }
-              if (output.endTime !== null) {
-                if (output.endTime === "") {
-                  $("#endTime").text("");
-                } else {
-                  $("#endTime").text("Auction End Time: " + output.endTime);
-                }
-              }
     				},
     				async: true,
     				error: function() {

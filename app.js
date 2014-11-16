@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var irc = require("irc");
 var routes = require('./routes/index');
 var status = require('./routes/status');
-var moment = require('moment');
 
 var app = express();
 
@@ -50,9 +49,7 @@ aucStatus = {
   sold: false,
   price: "$0.00",
   highBidder: "???",
-  prize: "???",
-  startTime: "???",
-  endTime: ""
+  prize: "???"
 }
 
 var bot = new irc.Client(settings.server, settings.nick, {
@@ -73,44 +70,29 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
-        startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        endTime = "";
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
         aucStatus.prize = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
-        if (startTime === "???") {
-          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        }
       } else if (message.indexOf("Going Twice!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = true;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
         aucStatus.prize = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
-        if (startTime === "???") {
-          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        }
       } else if (message.indexOf("SOOOOLLLLDDDD!!!!!!!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
         aucStatus.inAuction = false;
-        endTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
         aucStatus.prize = message.substring(message.lastIndexOf("$"),xIndexOf("!", message, 8));
-        if (startTime === "???") {
-          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        }
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
-        if (startTime === "???") {
-          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
-        }
         var words = message.split(" ");
         for(var x = 0; x < words.length; x++) {
           if (words[x] === "has") {
