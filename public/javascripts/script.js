@@ -24,6 +24,8 @@ function checkStatus() {
                 $("#going").text("GOING TWICE!!");
               } else if (output.sold) {
                 $("#going").text("SOLD!!!!!!!");
+              } else {
+                $("#going").text("");
               }
               if (output.inAuction) {
                 $("#price").text("Current Bid: " + output.price);
