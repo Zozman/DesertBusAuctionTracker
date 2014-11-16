@@ -19,9 +19,7 @@ router.get('/', function(req, res) {
              sold: aucStatus.sold,
              price: aucStatus.price,
              highBidder: aucStatus.highBidder,
-             prize: aucStatus.prize,
-             startTime: aucStatus.startTime,
-             endTime: aucStatus.endTime });
+             prize: aucStatus.prize });
 });
 
 module.exports = router;
