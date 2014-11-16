@@ -80,22 +80,37 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
+        aucStatus.prize = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
+        if (startTime === "???") {
+          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
+        }
       } else if (message.indexOf("Going Twice!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = true;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
+        aucStatus.prize = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
+        if (startTime === "???") {
+          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
+        }
       } else if (message.indexOf("SOOOOLLLLDDDD!!!!!!!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
         aucStatus.inAuction = false;
         endTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
+        aucStatus.prize = message.substring(message.lastIndexOf("$"),xIndexOf("!", message, 8));
+        if (startTime === "???") {
+          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
+        }
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
+        if (startTime === "???") {
+          startTime = moment().format('MMMM Do YYYY, h:mm:ss a ZZ');
+        }
         var words = message.split(" ");
         for(var x = 0; x < words.length; x++) {
           if (words[x] === "has") {
@@ -143,5 +158,21 @@ app.use(function(err, req, res, next) {
         error: {}
     });
 });
+
+function SecondIndexOf(Val, Str)  
+ {  
+   var Fst = Str.indexOf(Val);  
+   var Snd = Str.indexOf(Val, Fst+1);  
+   return Snd;
+ }  
+
+ function xIndexOf(Val, Str, x)  
+ {  
+   if (x <= (Str.split(Val).length - 1)) {  
+     Ot = Str.indexOf(Val);  
+     if (x > 1) { for (var i = 1; i < x; i++) { var Ot = Str.indexOf(Val, Ot + 1); } }  
+     return Ot;  
+   } else { alert(Val + " Occurs less than " + x + " times"); return 0; }  
+ }  
 
 module.exports = app;
