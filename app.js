@@ -100,7 +100,7 @@ bot.addListener("message", function (from, to, message) {
             break;
           }
         }
-        aucStatus.price = message.substring(message.lastIndexOf("$"),message.lastIndexOf("!"));
+        aucStatus.price = message.substring(message.lastIndexOf("$"),message.indexOf("!", message.indexOf("$")));
       }
       console.log(aucStatus);
     }
