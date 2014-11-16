@@ -21,7 +21,7 @@ app.all('/', function(req, res, next) {
 });
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,14 +31,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/status', status);
 
-var oauth = "oauth:vvvvag3gfijrx5x3hkqlo5zqo3pb11"
+var oauth = process.env.TWITCHKEY;
+var nick = process.env.TWITCHNAME;
 
 var settings = {
     channels : ["#desertbus"],
     server : "irc.twitch.tv",
     port: 6667,
     secure: false,
-    nick : "dbauctionwatch",
+    nick : nick,
     password : oauth
 }
 
