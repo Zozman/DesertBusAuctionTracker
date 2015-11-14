@@ -52,6 +52,7 @@ aucStatus = {
   goingOnce: false,
   goingTwice: false,
   sold: false,
+  abort: false,
   price: "$0.00",
   highBidder: "???",
   prize: "???"
@@ -75,6 +76,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.abort = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
         saveEvent("auctionStart", message);
@@ -82,6 +84,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.abort = false;
         aucStatus.inAuction = true;
         aucStatus.price = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
         saveEvent("goingOnce", message);
@@ -89,6 +92,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = true;
         aucStatus.sold = false;
+        aucStatus.abort = false;
         aucStatus.inAuction = true;
         aucStatus.price = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
         saveEvent("goingTwice", message);
@@ -96,6 +100,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
+        aucStatus.abort = false;
         aucStatus.inAuction = false;
         aucStatus.price = message.substring(message.lastIndexOf("$"),xIndexOf("!", message, 8));
         saveEvent("sold", message);
@@ -103,6 +108,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.abort = false;
         aucStatus.inAuction = true;
         var words = message.split(" ");
         for(var x = 0; x < words.length; x++) {
@@ -118,6 +124,7 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
+        aucStatus.abort = true;
         saveEvent("abort", message);
       }
       console.log(aucStatus);
@@ -191,6 +198,7 @@ function saveEvent(eventName, message) {
   event.set("price", aucStatus.price);
   event.set("highBidder", aucStatus.highBidder);
   event.set("prize", aucStatus.prize);
+  event.set("abort", aucStatus.abort);
 
   event.save(null, {
     success: function(result) {
@@ -216,7 +224,8 @@ function getLatestEvent() {
         sold: result[0].get('sold'),
         price: result[0].get('price'),
         highBidder: result[0].get('highBidder'),
-        prize: result[0].get('prize')
+        prize: result[0].get('prize'),
+        abort: result[0].get('abort')
       };
     },
     error: function(object, error) {
