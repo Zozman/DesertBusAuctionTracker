@@ -198,11 +198,12 @@ function getLatestEvent() {
   var query = new Parse.Query(AuctionEvent);
   query.limit(1);
   query.ascending("createdAt");
-  query.first({
-  success: function(result) {
-      aucStatus = result;
+  query.find({
+    success: function(result) {
+      //aucStatus = result;
       console.log("RETRIEVED ITEM!");
-      console.log(result.get('prize'));
+      console.log(result[0]);
+      
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
