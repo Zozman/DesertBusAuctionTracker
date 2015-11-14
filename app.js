@@ -202,7 +202,7 @@ function getLatestEvent() {
   success: function(result) {
       aucStatus = result;
       console.log("RETRIEVED ITEM!");
-      console.log(result);
+      console.log(result.get('prize'));
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
