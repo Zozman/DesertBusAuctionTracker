@@ -24,11 +24,15 @@ function checkStatus() {
                 $("#going").text("GOING TWICE!!");
               } else if (output.sold) {
                 $("#going").text("SOLD!!!!!!!");
+              } else if (output.abort) {
+                $("#going").text("AUCTION ABORTED!");
               } else {
                 $("#going").text("");
               }
               if (output.inAuction) {
                 $("#price").text("Current Bid: " + output.price);
+              } else if (output.abort) {
+                $("#price").text("Highest Bid Before Abort: " + output.price);
               } else {
                 $("#price").text("Sold For: " + output.price);
               }
@@ -46,7 +50,9 @@ function checkStatus() {
               if (output.prize !== null) {
                 if (output.inAuction) {
                   $("#item").text("Current Auction Item: " + output.prize);
-                } else {
+                } else if (output.abort) {
+                  $("#item").text("Aborted Auction Item: " + output.prize);
+                }else {
                   $("#item").text("Last Auction Item: " + output.prize);
                 }
               }
