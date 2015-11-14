@@ -16,7 +16,7 @@ body {
     width: 80%;
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(50%);
 }
 
 .grid {
