@@ -200,9 +200,17 @@ function getLatestEvent() {
   query.ascending("createdAt");
   query.find({
     success: function(result) {
-      //aucStatus = result;
       console.log("RETRIEVED ITEM!");
-      console.log(result[0].get('price'));
+      aucStatus = {
+        inAuction: result[0].get('inAuction'),
+        goingOnce: result[0].get('goingOnce'),
+        goingTwice: result[0].get('goingTwice'),
+        sold: result[0].get('sold'),
+        price: result[0].get('price'),
+        highBidder: result[0].get('highBidder'),
+        prize: result[0].get('prize')
+      };
+      console.log(aucStatus);
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
