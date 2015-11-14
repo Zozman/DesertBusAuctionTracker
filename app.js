@@ -113,6 +113,12 @@ bot.addListener("message", function (from, to, message) {
         }
         aucStatus.price = message.substring(message.lastIndexOf("$"),message.indexOf("!", message.indexOf("$")));
         saveEvent("update", message);
+      } else if (messahe.indexOf("aborted!") > -1) {
+        aucStatus.inAuction = false;
+        aucStatus.goingOnce = false;
+        aucStatus.goingTwice = false;
+        aucStatus.sold = false;
+        saveEvent("abort", message);
       }
       console.log(aucStatus);
     }
