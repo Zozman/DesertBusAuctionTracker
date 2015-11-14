@@ -5,3 +5,7 @@ body {
 .hidden {
   display: none;
 }
+
+.statusGrid {
+  text-align: center;
+}
