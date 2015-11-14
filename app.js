@@ -57,7 +57,7 @@ aucStatus = {
   prize: "???"
 };
 
-
+getLatestEvent();
 
 var bot = new irc.Client(settings.server, settings.nick, {
     channels: [settings.channels + " " + settings.password],
