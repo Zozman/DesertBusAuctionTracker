@@ -27,7 +27,11 @@ function checkStatus() {
               } else if (output.abort) {
                 $("#going").text("AUCTION ABORTED!");
               } else {
-                $("#going").text("TAKE THE SHOT!!!");
+                if (output.inAuction) {
+                  $("#going").text("TAKE THE SHOT!!!");
+                } else {
+                  $("#going").text("HOLD!");
+                }
               }
               if (output.inAuction) {
                 $("#price").text("Current Bid: " + output.price);
