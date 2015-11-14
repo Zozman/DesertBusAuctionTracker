@@ -28,8 +28,9 @@ body {
    margin-bottom: 1% !important;
 }
 
-.grid h1 {
-  
+.uk-h1, h1 {
+    font-size: 5vw;
+    line-height: 6vw;
 }
 
 .leftPanel {
