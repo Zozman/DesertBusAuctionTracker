@@ -153,6 +153,9 @@ app.use(function(err, req, res, next) {
     });
 });
 
+console.log("Finished Setup");
+console.log(aucStatus);
+
 function SecondIndexOf(Val, Str)  
  {  
    var Fst = Str.indexOf(Val);  
@@ -200,7 +203,6 @@ function getLatestEvent() {
   query.ascending("createdAt");
   query.find({
     success: function(result) {
-      console.log("RETRIEVED ITEM!");
       aucStatus = {
         inAuction: result[0].get('inAuction'),
         goingOnce: result[0].get('goingOnce'),
@@ -210,7 +212,6 @@ function getLatestEvent() {
         highBidder: result[0].get('highBidder'),
         prize: result[0].get('prize')
       };
-      console.log(aucStatus);
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
