@@ -45,7 +45,7 @@ var settings = {
     secure: false,
     nick : nick,
     password : oauth
-}
+};
 
 aucStatus = {
   inAuction: false,
@@ -55,7 +55,7 @@ aucStatus = {
   price: "$0.00",
   highBidder: "???",
   prize: "???"
-}
+};
 
 var bot = new irc.Client(settings.server, settings.nick, {
     channels: [settings.channels + " " + settings.password],
@@ -63,6 +63,8 @@ var bot = new irc.Client(settings.server, settings.nick, {
     password: settings.password,
     username: settings.nick
 });
+
+saveEvent("TEST", "TEST");
 
 bot.addListener("message", function (from, to, message) {
     //console.log(from + ' => ' + to + ': ' + message);
@@ -183,10 +185,10 @@ function saveEvent(eventName, message) {
 
   event.save(null, {
     success: function(result) {
-      console.log('New object created with objectId: ' + result.id);
+      console.log('New event created with objectId: ' + result.id);
     },
     error: function(result, error) {
-      console.log('Failed to create new object, with error code: ' + error.message);
+      console.log('Failed to create new event, with error code: ' + error.message);
     }
   });
 }
