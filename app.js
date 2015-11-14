@@ -5,7 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var irc = require("irc");
-var Parse = require('parse/node');
+Parse = require('parse/node');
 var routes = require('./routes/index');
 var status = require('./routes/status');
 
@@ -119,7 +119,7 @@ bot.addListener("message", function (from, to, message) {
         }
         aucStatus.price = message.substring(message.lastIndexOf("$"),message.indexOf("!", message.indexOf("$")));
         saveEvent("update", message);
-      } else if (messahe.indexOf("aborted!") > -1) {
+      } else if (message.indexOf("aborted!") > -1) {
         aucStatus.inAuction = false;
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
