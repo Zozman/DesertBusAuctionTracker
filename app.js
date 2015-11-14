@@ -202,8 +202,7 @@ function getLatestEvent() {
     success: function(result) {
       //aucStatus = result;
       console.log("RETRIEVED ITEM!");
-      console.log(result[0]);
-      
+      console.log(result[0].get('price'));
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
