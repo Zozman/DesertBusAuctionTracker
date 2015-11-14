@@ -57,14 +57,14 @@ aucStatus = {
   prize: "???"
 };
 
+
+
 var bot = new irc.Client(settings.server, settings.nick, {
     channels: [settings.channels + " " + settings.password],
     debug: false,
     password: settings.password,
     username: settings.nick
 });
-
-saveEvent("TEST", "TEST");
 
 bot.addListener("message", function (from, to, message) {
     //console.log(from + ' => ' + to + ': ' + message);
@@ -185,10 +185,35 @@ function saveEvent(eventName, message) {
 
   event.save(null, {
     success: function(result) {
-      console.log('New event created with objectId: ' + result.id);
+      //console.log('New event created with objectId: ' + result.id);
     },
     error: function(result, error) {
       console.log('Failed to create new event, with error code: ' + error.message);
+    }
+  });
+}
+
+function getLatestEvent() {
+  var AuctionEvent = Parse.Object.extend("AuctionEvent");
+  var query = new Parse.Query(AuctionEvent);
+  query.limit(1);
+  query.orderByAscending("createdAt");
+  query.first({
+  success: function(result) {
+      aucStatus = result;
+    },
+    error: function(object, error) {
+      console.log("ERROR: " + error);
+      console.log("Failed to get latest item; Using Default");
+      aucStatus = {
+        inAuction: false,
+        goingOnce: false,
+        goingTwice: false,
+        sold: false,
+        price: "$0.00",
+        highBidder: "???",
+        prize: "???"
+     };
     }
   });
 }
