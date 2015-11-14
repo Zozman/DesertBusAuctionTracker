@@ -5,10 +5,14 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var irc = require("irc");
+var Parse = require('parse').Parse;
 var routes = require('./routes/index');
 var status = require('./routes/status');
 
 var app = express();
+
+// Initialize Parse
+Parse.initialize(process.env.PARSEID, process.env.PARSEKEY);
  
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -157,5 +161,29 @@ function SecondIndexOf(Val, Str)
      return Ot;  
    } else { alert(Val + " Occurs less than " + x + " times"); return 0; }  
  }  
+
+function saveEvent(eventName, message) {
+  var AuctionEvent = Parse.Object.extend("AuctionEvent");
+  var event = new AuctionEvent();
+  
+  event.set("eventName", eventName);
+  event.set("message", message);
+  event.set("inAuction", aucStatus.inAuction);
+  event.set("goingOnce", aucStatus.goingOnce);
+  event.set("goingTwice", aucStatus.goingTwice);
+  event.set("sold", aucStatus.sold);
+  event.set("price", aucStatus.price);
+  event.set("highBidder", aucStatus.highBidder);
+  event.set("prize", aucStatus.prize);
+
+  event.save(null, {
+    success: function(result) {
+      console.log('New object created with objectId: ' + result.id);
+    },
+    error: function(result, error) {
+      console.log('Failed to create new object, with error code: ' + error.message);
+    }
+  });
+}
 
 module.exports = app;
