@@ -197,7 +197,7 @@ function getLatestEvent() {
   var AuctionEvent = Parse.Object.extend("AuctionEvent");
   var query = new Parse.Query(AuctionEvent);
   query.limit(1);
-  query.orderByAscending("createdAt");
+  query.ascending("createdAt");
   query.first({
   success: function(result) {
       aucStatus = result;
