@@ -202,6 +202,7 @@ function getLatestEvent() {
   success: function(result) {
       aucStatus = result;
       console.log("RETRIEVED ITEM!");
+      console.log(result);
     },
     error: function(object, error) {
       console.log("ERROR: " + error);
