@@ -29,8 +29,8 @@ body {
 }
 
 .uk-h1, h1 {
-    font-size: 5vw;
-    line-height: 6vw;
+    font-size: 5vw !important;
+    line-height: 6vw !important;
 }
 
 .leftPanel {
