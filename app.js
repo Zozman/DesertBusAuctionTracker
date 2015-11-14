@@ -75,24 +75,28 @@ bot.addListener("message", function (from, to, message) {
         aucStatus.sold = false;
         aucStatus.highBidder = "";
         aucStatus.prize = message.substring(message.lastIndexOf(":")+2,message.indexOf("$")-4);
+        saveEvent("auctionStart", message);
       } else if (message.indexOf("Going Once!") > -1) {
         aucStatus.goingOnce = true;
         aucStatus.goingTwice = false;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
         aucStatus.price = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
+        saveEvent("goingOnce", message);
       } else if (message.indexOf("Going Twice!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = true;
         aucStatus.sold = false;
         aucStatus.inAuction = true;
         aucStatus.price = message.substring(message.lastIndexOf("$"),SecondIndexOf("!", message));
+        saveEvent("goingTwice", message);
       } else if (message.indexOf("SOOOOLLLLDDDD!!!!!!!") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
         aucStatus.sold = true;
         aucStatus.inAuction = false;
         aucStatus.price = message.substring(message.lastIndexOf("$"),xIndexOf("!", message, 8));
+        saveEvent("sold", message);
       } else if (message.indexOf("has the high bid of") > -1) {
         aucStatus.goingOnce = false;
         aucStatus.goingTwice = false;
@@ -106,6 +110,7 @@ bot.addListener("message", function (from, to, message) {
           }
         }
         aucStatus.price = message.substring(message.lastIndexOf("$"),message.indexOf("!", message.indexOf("$")));
+        saveEvent("update", message);
       }
       console.log(aucStatus);
     }
