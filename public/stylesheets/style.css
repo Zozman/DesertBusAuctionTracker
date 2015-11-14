@@ -2,6 +2,10 @@ body {
 
 }
 
+.hidden {
+  display: none;
+}
+
 #text {
   margin-left:auto;
   margin-right:auto;
