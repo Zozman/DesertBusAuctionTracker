@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
       var prizeList = [];
       for (var x = 0; x < result.length; x++) {
         var object = result[x];
-        if (prizeList.indexOf(object.get('prize')) != -1) {
+        if (prizeList.indexOf(object.get('prize')) == -1) {
           prizeList.push(object.get('prize'));
           winnerList.push({
             prize: object.get('prize'),
@@ -25,7 +25,7 @@ router.get('/', function(req, res) {
       res.json({
         winnerList: winnerList,
         success: true,
-        operation: 'winnerList'
+        operation: 'winners'
       });
     },
     error: function(object, error) {
