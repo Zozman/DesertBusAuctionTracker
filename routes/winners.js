@@ -6,6 +6,7 @@ router.get('/', function(req, res) {
   var AuctionEvent = Parse.Object.extend("AuctionEvent");
   var query = new Parse.Query(AuctionEvent);
   query.equalTo("sold", true);
+  query.ascending("createdAt");
    query.find({
     success: function(result) {
       var winnerList = [];
