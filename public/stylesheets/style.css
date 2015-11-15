@@ -89,4 +89,14 @@ body {
       top: 0%;
       transform: translateY(0%);
   }
+  
+  .leftPanel {
+    margin-right: 0% !important;
+    width: 100% !important;
+}
+
+  .rightPanel {
+      margin-left: 0% !important;
+      width: 100% !important;
+  }
 }
