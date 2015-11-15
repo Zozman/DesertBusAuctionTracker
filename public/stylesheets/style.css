@@ -39,6 +39,7 @@ body {
 }
 
 .tableBlock {
+  margin-top: 1% !important;
   margin-left: auto !important;
   margin-right: auto !important;
   width: 80%;
