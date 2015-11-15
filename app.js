@@ -9,6 +9,7 @@ Parse = require('parse/node');
 var routes = require('./routes/index');
 var status = require('./routes/status');
 var winners = require('./routes/winners');
+var winnerList = require('./routes/winnerList');
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/status', status);
 app.use('/winners', winners);
+app.use('/winnerList', winnerList);
 
 var oauth = process.env.TWITCHKEY;
 var nick = process.env.TWITCHNAME;
