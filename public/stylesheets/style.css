@@ -1,6 +1,5 @@
 body {
   font-family: 'Open Sans', sans-serif;
-  overflow: hidden;
 }
 
 .hidden {
@@ -37,6 +36,14 @@ body {
     position: relative;
     top: 50%;
     transform: translateY(-50%);
+}
+
+.tableBlock {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 80%;
+  position: relative;
+  color: white;
 }
 
 .grid {
