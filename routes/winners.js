@@ -9,14 +9,18 @@ router.get('/', function(req, res) {
    query.find({
     success: function(result) {
       var winnerList = [];
+      var prizeList = [];
       for (var x = 0; x < result.length; x++) {
         var object = result[x];
-        winnerList.push({
-          prize: object.get('prize'),
-          winner: object.get('highBidder'),
-          price: object.get('price'),
-          time: object.get('createdAt')
-        });
+        if (prizeList.indexOf(object.get('prize')) != -1) {
+          prizeList.push(object.get('prize'));
+          winnerList.push({
+            prize: object.get('prize'),
+            winner: object.get('highBidder'),
+            price: object.get('price'),
+            time: object.get('createdAt')
+          });
+        }
       }
       res.json({
         winnerList: winnerList,
