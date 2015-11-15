@@ -1,6 +1,13 @@
 extends layout
 
 block content
+   nav.uk-navbar
+     a.uk-navbar-brand(href='') DB9 Auction Stats
+     ul.uk-navbar-nav
+       li
+         a(href='/') Latest
+       li
+         a(href='/winnerList') Winners
    .mainBlock.uk-grid
      .uk-width-medium-1-1.statusGrid.grid
        h1#status Desert Bus Is Not Currently Auctioning Anything
