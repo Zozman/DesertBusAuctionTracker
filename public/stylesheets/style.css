@@ -48,6 +48,14 @@ body {
    margin-bottom: 1% !important;
 }
 
+.tableGrid {
+   border: 1px solid white;
+   border-radius: 4px;
+   margin: 2%;
+   padding: 2%;
+   margin-bottom: 1% !important;
+}
+
 .uk-h1, h1 {
     font-size: 4vw !important;
     line-height: 5vw !important;
